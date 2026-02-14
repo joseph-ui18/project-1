@@ -1,4 +1,4 @@
-project structure:
+cd project structure:
 
 airport_system/
 │

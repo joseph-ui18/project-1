@@ -104,7 +104,7 @@
         <div class="logo"> Global Airline</div>
         <nav>   
             <a href="index.php">Home</a>
-            <a href="register.php">Register</a>
+            <a href="passenger/register.php">Register</a>
             <a href="login.php">Login</a>
         </nav>
     </header>
@@ -135,7 +135,7 @@
 
     <footer>
         <p>&copy; 2026 Global Airline. All rights reserved.</p>
-    </footer>
+    </footer> 
 
 </body>
 </html>
