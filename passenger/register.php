@@ -7,10 +7,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $username = $_POST['username'];
     $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
-    $role_id = 3; 
-    
-    $stmt = $conn->prepare("INSERT INTO users (username, password, role_id) VALUES (?, ?, ?)");
-    $stmt->bind_param("ssi", $username, $password, $role_id);
+    $email = $_POST['email'];
+    $phone = $_POST['phone'];
+    $role_id = 3; // Passenger
+
+    $profile_pic = null; 
+    if (isset($_FILES['profile_pic']) && $_FILES['profile_pic']['error'] == 0) {
+        $upload_dir = '../uploads/';
+        if (!is_dir($upload_dir)) {
+            mkdir($upload_dir, 0755, true);
+        }
+        $filename = time() . '_' . basename($_FILES['profile_pic']['name']);
+        $target_file = $upload_dir . $filename;
+
+        if (move_uploaded_file($_FILES['profile_pic']['tmp_name'], $target_file)) {
+            $profile_pic = 'uploads/' . $filename; // save relative path
+        }
+    }
+
+    // Insert into database using prepared statement
+    $stmt = $conn->prepare("INSERT INTO users (username, password, email, phone, profile_pic, role_id) VALUES (?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param("sssssi", $username, $password, $email, $phone, $profile_pic, $role_id);
 
     if ($stmt->execute()) {
         $message = "Registration Successful!";
@@ -30,7 +47,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <title>Register - Global Airline</title>
 
 <style>
-
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -47,20 +63,9 @@ header {
     align-items: center;
 }
 
-header .logo {
-    font-size: 22px;
-    font-weight: bold;
-}
-
-nav a {
-    color: #fff;
-    text-decoration: none;
-    margin-left: 20px;
-}
-
-nav a:hover {
-    text-decoration: underline;
-}
+header .logo { font-size: 22px; font-weight: bold; }
+nav a { color: #fff; text-decoration: none; margin-left: 20px; }
+nav a:hover { text-decoration: underline; }
 
 .hero {
     background-image: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb');
@@ -70,17 +75,9 @@ nav a:hover {
     text-align: center;
     color: white;
 }
+.hero h1 { font-size: 40px; }
 
-.hero h1 {
-    font-size: 40px;
-}
-
-.form-container {
-    display: flex;
-    justify-content: center;
-    margin-top: -40px;
-    margin-bottom: 60px;
-}
+.form-container { display: flex; justify-content: center; margin-top: -40px; margin-bottom: 60px; }
 
 form {
     background-color: white;
@@ -89,14 +86,12 @@ form {
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.2);
 }
-
-form h2 {
-    text-align: center;
-    color: #002b5b;
-}
+form h2 { text-align: center; color: #002b5b; }
 
 input[type="text"],
-input[type="password"] {
+input[type="password"],
+input[type="email"],
+input[type="file"] {
     width: 100%;
     padding: 10px;
     margin: 10px 0;
@@ -114,22 +109,11 @@ input[type="submit"] {
     cursor: pointer;
 }
 
-input[type="submit"]:hover {
-    background-color: #50682a;
-}
+input[type="submit"]:hover { background-color: #50682a; }
 
-.message {
-    text-align: center;
-    margin-top: 10px;
-    color: green;
-}
+.message { text-align: center; margin-top: 10px; color: green; }
 
-footer {
-    background-color: #333;
-    color: #fff;
-    text-align: center;
-    padding: 15px 0;
-}
+footer { background-color: #333; color: #fff; text-align: center; padding: 15px 0; }
 
 </style>
 </head>
@@ -149,11 +133,14 @@ footer {
 </section>
 
 <div class="form-container">
-    <form method="POST">
+    <form method="POST" enctype="multipart/form-data">
         <h2>Register</h2>
 
         <input type="text" name="username" placeholder="Enter Username" required>
         <input type="password" name="password" placeholder="Enter Password" required>
+        <input type="email" name="email" placeholder="Enter Email" required>
+        <input type="text" name="phone" placeholder="Enter Phone Number">
+        <input type="file" name="profile_pic" accept="image/*">
 
         <input type="submit" value="Register">
 

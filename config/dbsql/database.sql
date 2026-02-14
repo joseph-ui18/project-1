@@ -9,9 +9,14 @@ CREATE TABLE users (
     user_id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(50) NOT NULL,
     password VARCHAR(255) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    phone VARCHAR(20),
+    profile_pic VARCHAR(255),
     role_id INT,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (role_id) REFERENCES roles(role_id)
 );
+
 
 CREATE TABLE airports (
     airport_id INT AUTO_INCREMENT PRIMARY KEY,
