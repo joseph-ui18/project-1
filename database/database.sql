@@ -1,6 +1,4 @@
 
-Database schema for Airline Reservation System
-
 
 CREATE TABLE roles (
     role_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -67,7 +65,7 @@ CREATE TABLE flights (
     arrival_time DATETIME,
     aircraft_id INT,
     base_price DECIMAL(10,2),
-    status VARCHAR(50) DEFAULT 'Scheduled', 'Delayed', 'Boarding', 'Cancelled', 
+    status VARCHAR(50) DEFAULT ('Scheduled', 'Delayed', 'Boarding', 'Cancelled'),
     FOREIGN KEY (departure_airport) REFERENCES airports(airport_id),
     FOREIGN KEY (arrival_airport) REFERENCES airports(airport_id),
     FOREIGN KEY (aircraft_id) REFERENCES aircrafts(aircraft_id)
