@@ -136,8 +136,8 @@ footer { background-color: #333; color: #fff; text-align: center; padding: 15px 
 <header>
     <div class="logo">Global Airline</div>
     <nav>
-        <a href="../index.php">Home</a>
-        <a href="register.php">Register</a>
+        <a href="index.php">Home</a>
+        <a href="../passenger/register.php">Register</a>
     </nav>
 </header>
 
