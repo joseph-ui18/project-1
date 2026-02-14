@@ -85,31 +85,42 @@ form {
     width: 400px;
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    display: flex;
+    flex-direction: column;
+    gap: 15px; 
 }
-form h2 { text-align: center; color: #002b5b; }
+
+form h2 {
+    text-align: center;
+    color: #002b5b;
+    margin-bottom: 20px;
+}
 
 input[type="text"],
 input[type="password"],
 input[type="email"],
 input[type="file"] {
     width: 100%;
-    padding: 10px;
-    margin: 10px 0;
+    padding: 12px;  
     border: 1px solid #ccc;
     border-radius: 5px;
+    box-sizing: border-box;
 }
 
 input[type="submit"] {
     width: 100%;
     background-color: #b97612;
     color: white;
-    padding: 10px;
+    padding: 12px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    font-size: 16px;
 }
 
-input[type="submit"]:hover { background-color: #50682a; }
+input[type="submit"]:hover {
+    background-color: #50682a;
+}
 
 .message { text-align: center; margin-top: 10px; color: green; }
 
