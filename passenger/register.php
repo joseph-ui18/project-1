@@ -1,140 +1,171 @@
 <?php
+include("../config/db.php");
 
-$host = "localhost";
-$username = "root"; 
-$password = "carl";
-$dbname = "airport_db";
+$message = "";
 
-$conn = new mysqli($host, $username, $password, $dbname, 3307);
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
-isset($_POST['username']) ? $username = $_POST['username'] : $username = "";
-isset($_POST['password']) ? $password = $_POST['password'] : $password = "";
-isset($_POST['role_id']) ? $role_id = $_POST['role_id'] : $role_id = "3";
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $sql = "INSERT INTO users (username, password, role_id) VALUES ('$username', '$password', '$role_id')";
-    if ($conn->query($sql) === TRUE) {
-        echo "New record created successfully";
+
+    $username = $_POST['username'];
+    $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+    $role_id = 3; 
+    
+    $stmt = $conn->prepare("INSERT INTO users (username, password, role_id) VALUES (?, ?, ?)");
+    $stmt->bind_param("ssi", $username, $password, $role_id);
+
+    if ($stmt->execute()) {
+        $message = "Registration Successful!";
     } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
+        $message = "Error: " . $stmt->error;
     }
+
+    $stmt->close();
 }
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>REGISTER FORM</title>
-</head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Register - Global Airline</title>
 
 <style>
-    body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 20px;
-        background-color: #3bc3b0;
-    }
 
-    h1 {
-        color: #333;
-        text-align: center;
-        margin-bottom: 20px;
-    }
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
 
-    form {
-        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-        background-color: #fff;
-        padding: 20px;
-        border-radius: 20px;
-        justify-content: center;
-        margin: 0 auto;
-        width: 500px;
-        margin-top: 100px;
-        box-shadow: 0 4px 8px rgb(0, 0, 0, 1000);
-    }
+header {
+    background-color: #002b5b;
+    color: #fff;
+    padding: 15px 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
-    label {
-        display: block;
-        margin-bottom: 5px;
-        color: #555;
-    }
+header .logo {
+    font-size: 22px;
+    font-weight: bold;
+}
 
-    input[type="text"],
-    input[type="password"] {
-        width: 450px;
-        padding: 10px;
-        margin-bottom: 15px;
-        border: 2px solid gray;
-        border-radius: 4px;
-    }
+nav a {
+    color: #fff;
+    text-decoration: none;
+    margin-left: 20px;
+}
 
-    input[type="submit"] {
-        background-color: #050e11;
-        color: white;
-        padding: 10px 20px;
-        border: none;
-        border-radius: 20px;
-        cursor: pointer;
-    }
+nav a:hover {
+    text-decoration: underline;
+}
 
-    input[type="submit"]:hover {
-        background-color: #cb1717;
-    }
+.hero {
+    background-image: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb');
+    background-size: cover;
+    background-position: center;
+    padding: 80px 20px;
+    text-align: center;
+    color: white;
+}
 
-    .navbar {
-        background-color: #002b5b;
-        padding: 1px;
-        padding-left: 10px;
-        display: flex;
-        justify-content: center;
-        gap: 20px;
-    }
+.hero h1 {
+    font-size: 40px;
+}
 
-    .navbar a {
-        color: white;
-        text-decoration: none;
-        font-size: 18px;
-        padding: 5px;
-    }
+.form-container {
+    display: flex;
+    justify-content: center;
+    margin-top: -40px;
+    margin-bottom: 60px;
+}
 
-    header {
-            background-color: #002b5b;
-            color: #fff;
-            padding: 15px 50px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+form {
+    background-color: white;
+    padding: 30px;
+    width: 400px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
 
-        header .logo {
-            font-size: 22px;
-            font-weight: bold;
-        }
+form h2 {
+    text-align: center;
+    color: #002b5b;
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+input[type="submit"] {
+    width: 100%;
+    background-color: #b97612;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: #50682a;
+}
+
+.message {
+    text-align: center;
+    margin-top: 10px;
+    color: green;
+}
+
+footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 15px 0;
+}
+
 </style>
+</head>
+
 <body>
-    <header>
-    <div class="logo"> Global Airline</div>
-        <nav class="navbar">   
-            <a href="../index.php">Home</a>
-            <a href="../login.php">Login</a>
-        </nav>
-    </header>
 
-    <h1>REGISTER FORM</h1>
-    <form action="register.php" method="POST">
-        <label for="name">Name:</label><br>
-        <input type="text" id="name" name="name" required><br><br>
+<header>
+    <div class="logo">Global Airline</div>
+    <nav>
+        <a href="../index.php">Home</a>
+        <a href="../login.php">Login</a>
+    </nav>
+</header>
 
-        <label for="password">Password:</label><br>
-        <input type="password" id="password" name="password" required><br><br>
+<section class="hero">
+    <h1>Create Your Passenger Account</h1>
+</section>
+
+<div class="form-container">
+    <form method="POST">
+        <h2>Register</h2>
+
+        <input type="text" name="username" placeholder="Enter Username" required>
+        <input type="password" name="password" placeholder="Enter Password" required>
 
         <input type="submit" value="Register">
 
+        <?php if ($message != ""): ?>
+            <div class="message"><?php echo $message; ?></div>
+        <?php endif; ?>
     </form>
-    
+</div>
+
+<footer>
+    <p>&copy; 2026 Global Airline. All rights reserved.</p>
+</footer>
+
 </body>
 </html>
