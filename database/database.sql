@@ -1,5 +1,3 @@
-
-
 CREATE TABLE roles (
     role_id INT AUTO_INCREMENT PRIMARY KEY,
     role_name VARCHAR(50) NOT NULL
@@ -65,7 +63,7 @@ CREATE TABLE flights (
     arrival_time DATETIME,
     aircraft_id INT,
     base_price DECIMAL(10,2),
-    status VARCHAR(50) DEFAULT ('Scheduled', 'Delayed', 'Boarding', 'Cancelled'),
+    status ENUM ('Scheduled','Delayed','Boarding','Cancelled') DEFAULT 'Scheduled',
     FOREIGN KEY (departure_airport) REFERENCES airports(airport_id),
     FOREIGN KEY (arrival_airport) REFERENCES airports(airport_id),
     FOREIGN KEY (aircraft_id) REFERENCES aircrafts(aircraft_id)
@@ -79,7 +77,7 @@ CREATE TABLE bookings (
     seat_class_id INT,
     booking_date DATETIME DEFAULT CURRENT_TIMESTAMP,
     seat_number VARCHAR(10),
-    status VARCHAR(50) DEFAULT 'Booked', 'Cancelled', 'Checked-in',
+    status ENUM ('Booked', 'Cancelled', 'Checked-in') DEFAULT 'Booked',
     FOREIGN KEY (passenger_id) REFERENCES passengers(passenger_id),
     FOREIGN KEY (flight_id) REFERENCES flights(flight_id),
     FOREIGN KEY (seat_class_id) REFERENCES seat_classes(seat_class_id)
