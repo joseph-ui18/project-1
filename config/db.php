@@ -1,7 +1,7 @@
 <?php
 $host = 'localhost';
-$user = 'user';      
-$pass = 'pass';      
+$user = 'root';      
+$pass = '';      
 $db   = 'airport_db'; 
 
 
