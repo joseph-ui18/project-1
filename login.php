@@ -27,7 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 header("Location: ../admin/dashboard.php");
                 exit();
             } elseif ($role_id == 3) { 
-                header("Location: ../passenger/dashboard.php");
+                header("Location: ../project-1/passenger/dashboard.php");
                 exit();
             } else { 
                 header("Location: ../staff/dashboard.php");
