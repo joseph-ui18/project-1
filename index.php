@@ -112,7 +112,7 @@
     <section class="hero">   
         <h1>Welcome to Global Airline</h1>
         <p>Your gateway to the world. Book your flights, manage your bookings, and explore new destinations with us.</p>
-        <a href ="register.php" class="btn">Book Now!</a>
+        <a href ="passenger/book.php" class="btn">Book Now!</a>
     </section>
 
     <section class="info">
