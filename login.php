@@ -27,11 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 header("Location: ../admin/dashboard.php");
                 exit();
             } elseif ($role_id == 3) { 
-<<<<<<< HEAD
-                header("Location: ../project-1/passenger/dashboard.php");
-=======
                 header("Location: ../passenger/dashboard.php");
->>>>>>> 11ed0b2f4572856eeba22985c9fdf3b7e39fc898
                 exit();
             } else { 
                 header("Location: ../staff/dashboard.php");
@@ -141,11 +137,7 @@ footer { background-color: #333; color: #fff; text-align: center; padding: 15px 
     <div class="logo">Global Airline</div>
     <nav>
         <a href="index.php">Home</a>
-<<<<<<< HEAD
-        <a href="./passenger/register.php">Register</a>
-=======
         <a href="/passenger/register.php">Register</a>
->>>>>>> 11ed0b2f4572856eeba22985c9fdf3b7e39fc898
     </nav>
 </header>
 
