@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?php
 include '../config/db.php';
 
@@ -9,11 +10,14 @@ if (!isset($_SESSION['username']) || $_SESSION['role_id'] != 3) {
 
 ?>
 
+=======
+>>>>>>> b49c34bbcffb2630f536315bf7f15c3ae8a88d5f
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<<<<<<< HEAD
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <title>GLOBAL AIRLINE DASHBOARD</title>
     <style>
@@ -92,3 +96,20 @@ if (!isset($_SESSION['username']) || $_SESSION['role_id'] != 3) {
 
 </body>
 </html>
+=======
+    <title>GLOBAL AIRLINE DASHBOARD</title>
+</head>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 20px;
+        background-color: #0898db;
+    }
+</style>
+<body>
+    <h1>Welcome to the Passenger Dashboard</h1>
+</body>
+</html>
+>>>>>>> b49c34bbcffb2630f536315bf7f15c3ae8a88d5f
