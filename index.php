@@ -134,7 +134,7 @@
     </section>
 
     <footer>
-        <p>&copy; 2026 Global Airline. All rights reserved.</p>
+        <p>&copy; 2026 Global Airline Worldwide. served.</p>
     </footer> 
 
 </body>
