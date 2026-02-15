@@ -1,14 +1,6 @@
 <?php
 
-$host = "localhost";
-$username = "root"; 
-$password = "carl";
-$dbname = "airport_db";
-
-$conn = new mysqli($host, $username, $password, $dbname, 3307);
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+include '../config.php/db.php';
 
 isset($_POST['username']) ? $username = $_POST['username'] : $username = "";
 isset($_POST['password']) ? $password = $_POST['password'] : $password = "";
@@ -88,7 +80,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     .navbar {
         background-color: #002b5b;
         padding: 1px;
-        padding-left: 10px;
+                padding-left: 10px;
         display: flex;
         justify-content: center;
         gap: 20px;
